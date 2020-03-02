@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'BHB-Blog'),
 
     /*
     |--------------------------------------------------------------------------
@@ -174,6 +174,15 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /*
+         * 观察者模式注册
+         */
+        App\Providers\ObserverServiceProvider::class,
+        /*
+         * PHPStorm支持
+         */
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
     ],
 
