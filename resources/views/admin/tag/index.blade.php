@@ -5,12 +5,12 @@
         <div class="row">
             <ol class="breadcrumb">
                 <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
-                <li class="active">文章</li>
+                <li class="active">标签</li>
             </ol>
         </div><!--/.row-->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">文章</h1>
+                <h1 class="page-header">标签</h1>
             </div>
         </div><!--/.row-->
         <div class="row">
@@ -18,51 +18,48 @@
                 <div class="panel panel-default">
                     <div class="panel-body tabs">
                         <ul class="nav nav-pills">
-                            <li class="active"><a href="#">文章列表</a></li>
-                            <li><a href="{{ url('admin/article/create') }}">新增文章</a></li>
+                            <li class="active"><a href="#">标签列表</a></li>
+                            <li><a href="{{ url('admin/tag/create') }}">新增标签</a></li>
                         </ul>
                         <div class="tab-content">
                             <table data-toggle="table" >
                             <thead>
                             <tr>
                                 <th data-align="center">ID</th>
-                                <th>标题</th>
-                                <th>分类</th>
-                                <th>点击数</th>
+                                <th>标签名</th>
+                                <th>关键字</th>
+                                <th>描述</th>
                                 <th>状态</th>
-                                <th>创建时间</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
-                            @foreach($articleList as $article)
+                            @foreach($tagList as $tag)
                                 <tr>
-                                    <td>{{ $article->id }}</td>
-                                    <td>{{ $article->title }}</td>
-                                    <td>{{ $article->type->name }}</td>
-                                    <td>{{ $article->click }}</td>
+                                    <td>{{ $tag->id }}</td>
+                                    <td>{{ $tag->name }}</td>
+                                    <td>{{ $tag->keywords }}</td>
+                                    <td>{{ $tag->description }}</td>
                                     <td>
-                                        @if(is_null($article->deleted_at))
+                                        @if(is_null($tag->deleted_at))
                                             √
                                         @else
                                             ×
                                         @endif
                                     </td>
-                                    <td>{{ $article->created_at }}</td>
                                     <td>
-                                        <a href="{{ url('admin/article/edit', [$article->id]) }}">编辑</a>
+                                        <a href="{{ url('admin/tag/edit', [$tag->id]) }}">编辑</a>
                                         |
-                                        @if($article->trashed())
-                                            <a href="javascript:if(confirm('恢复?'))location.href='{{ url('admin/article/restore', [$article->id]) }}'">恢复</a>
+                                        @if($tag->trashed())
+                                            <a href="javascript:if(confirm('恢复?'))location.href='{{ url('admin/tag/restore', [$tag->id]) }}'">恢复</a>
                                             |
-                                            <a href="javascript:if(confirm('彻底删除?'))location.href='{{ url('admin/article/forceDelete', [$article->id]) }}'">彻底删除</a>
+                                            <a href="javascript:if(confirm('彻底删除?'))location.href='{{ url('admin/tag/forceDelete', [$tag->id]) }}'">彻底删除</a>
                                         @else
-                                            <a href="javascript:if(confirm('删除?'))location.href='{{ url('admin/article/destroy', [$article->id]) }}'">删除</a>
+                                            <a href="javascript:if(confirm('删除?'))location.href='{{ url('admin/tag/destroy', [$tag->id]) }}'">删除</a>
                                         @endif
                                     </td>
                                 </tr>
                             @endforeach
                         </table>
-                            {{$articleList -> links()}}
                         </div>
                     </div>
                 </div>

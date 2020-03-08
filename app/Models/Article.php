@@ -12,4 +12,8 @@ namespace App\Models;
 class Article extends Base
 {
     //
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
 }

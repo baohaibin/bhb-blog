@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
 
     <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
@@ -45,10 +46,9 @@
 <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
     <ul class="nav menu">
         <li><a href="index.html"><span class="glyphicon glyphicon-dashboard"></span> 统计</a></li>
-        <li><a href="index.html"><span class="glyphicon glyphicon-dashboard"></span> 管理员管理</a></li>
-        <li><a href="/admin/article/index"><span class="glyphicon glyphicon-th"></span> 文章</a></li>
-        <li><a href="charts.html"><span class="glyphicon glyphicon-stats"></span> 分类</a></li>
-        <li><a href="tables.html"><span class="glyphicon glyphicon-list-alt"></span> 标签</a></li>
+        <li><a href="{{url('admin/article/index')}}"><span class="glyphicon glyphicon-th"></span> 文章</a></li>
+        <li><a href="{{url('admin/type/index')}}"><span class="glyphicon glyphicon-stats"></span> 分类</a></li>
+        <li><a href="{{url('admin/tag/index')}}"><span class="glyphicon glyphicon-list-alt"></span> 标签</a></li>
         <li><a href="forms.html"><span class="glyphicon glyphicon-pencil"></span> 用户</a></li>
         <li><a href="forms.html"><span class="glyphicon glyphicon-pencil"></span> 评论</a></li>
         <li><a href="forms.html"><span class="glyphicon glyphicon-pencil"></span> 导航栏</a></li>
@@ -107,6 +107,15 @@
     })
     $(window).on('resize', function () {
         if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+    })
+</script>
+<script>
+    $(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
     })
 </script>
 @yield('js')

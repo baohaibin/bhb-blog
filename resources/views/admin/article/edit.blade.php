@@ -5,13 +5,13 @@
         <div class="row">
             <ol class="breadcrumb">
                 <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
-                <li class="active">新增文章</li>
+                <li class="active">更新文章</li>
             </ol>
         </div><!--/.row-->
 
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">新增文章</h1>
+                <h1 class="page-header">更新文章</h1>
             </div>
         </div><!--/.row-->
 
@@ -21,7 +21,7 @@
                     <div class="panel-body tabs">
                         <ul class="nav nav-pills">
                             <li><a href="{{ url('admin/article/index') }}">文章列表</a></li>
-                            <li class="active"><a href="#">新增文章</a></li>
+                            <li class="active"><a href="#">更新文章</a></li>
                         </ul>
 
 
@@ -34,62 +34,63 @@
                                         </div>
                                     @endforeach
                                 @endif
-                            <form role="form" action="{{ url('admin/article/store') }}" method="post" enctype="multipart/form-data">
+                            <form role="form" action="{{ url('admin/article/update', [$article->id]) }}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                     <label>标题</label>
-                                    <input name="title" class="form-control" placeholder="标题" value="{{ old('title') }}">
+                                    <input name="title" class="form-control" placeholder="标题" value="{{ $article->title }}">
                                 </div>
                                 <div class="form-group">
                                     <label>分类</label>
                                     <select name="type_id" class="form-control">
                                         @foreach($typeList as $type)
-                                            <option value="{{$type->id}}">{{$type->name}}</option>
+                                            <option value="{{$type->id}}" @if($article->type_id == $type->id) selected @endif>{{$type->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>作者</label>
-                                    <input name="author" class="form-control" placeholder="作者" value="{{ old('author') }}">
+                                    <input name="author" class="form-control" placeholder="作者" value="{{ $article->author }}">
                                 </div>
                                 <div class="form-group">
                                     <label>关键词</label>
-                                    <input name="keywords" class="form-control" placeholder="英文逗号分割" value="{{ old('keywords') }}">
+                                    <input name="keywords" class="form-control" placeholder="英文逗号分割" value="{{ $article->keywords }}">
                                 </div>
                                 <div class="form-group">
                                     <label>标签</label>
                                     @foreach($tagList as $tag)
-                                    <div class="checkbox">
-                                        <label>
-                                            <input name="tag_id[]" type="checkbox" value="{{$tag->id}}">{{$tag->name}}
-                                        </label>
-                                    </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input name="tag_id[]" type="checkbox" value="{{$tag->id}}" @if(in_array($tag->id,$article->tag_ids)) checked @endif>{{$tag->name}}
+                                            </label>
+                                        </div>
                                     @endforeach
                                 </div>
                                 <div class="form-group">
                                     <label>封面图</label>
                                     <input name="cover" type="file">
+                                    <img style="width: 200px;" src="{{ $article->cover }}">
                                 </div>
                                 <div class="form-group">
                                     <label>描述</label>
-                                    <textarea name="description" class="form-control" rows="5" placeholder="关于文章的描述">{{ old('description') }}</textarea>
+                                    <textarea name="description" class="form-control" rows="5" placeholder="关于文章的描述">{{ $article->description }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>内容</label>
                                     <div id="md-content">
-                                    <textarea name="markdown">{{ old('markdown') }}</textarea>
+                                    <textarea name="markdown">{{ $article->markdown }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>置顶</label>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="is_top" id="optionsRadios1" value="1">是
+                                            <input type="radio" name="is_top" id="optionsRadios1" value="1" @if($article->is_top==1) checked @endif>是
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="is_top" id="optionsRadios2" value="0" checked>否
+                                            <input type="radio" name="is_top" id="optionsRadios2" value="0" @if($article->is_top==0) checked @endif>否
                                         </label>
                                     </div>
                                 </div>

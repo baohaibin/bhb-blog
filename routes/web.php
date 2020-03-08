@@ -11,9 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::namespace('Admin')->prefix('admin')->group(function () {
     //首页
@@ -39,5 +36,43 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
         Route::get('restore/{id}', 'ArticleController@restore');
         // 彻底删除文章
         Route::get('forceDelete/{id}', 'ArticleController@forceDelete');
+    });
+    // 分类管理
+    Route::prefix('type')->group(function () {
+        // 分类列表
+        Route::get('index', 'TypeController@index');
+        // 新增分类
+        Route::get('create', 'TypeController@create');
+        Route::post('store', 'TypeController@store');
+
+        // 编辑分类
+        Route::get('edit/{id}', 'TypeController@edit');
+        Route::post('update/{id}', 'TypeController@update');
+
+        //软删除
+        Route::get('destroy/{id}', 'TypeController@destroy');
+        //恢复
+        Route::get('restore/{id}', 'TypeController@restore');
+        //彻底删除
+        Route::get('forceDelete/{id}', 'TypeController@forceDelete');
+    });
+
+    Route::prefix('tag')->group(function () {
+        // 分类列表
+        Route::get('index', 'TagController@index');
+        // 新增分类
+        Route::get('create', 'TagController@create');
+        Route::post('store', 'TagController@store');
+
+        // 编辑分类
+        Route::get('edit/{id}', 'TagController@edit');
+        Route::post('update/{id}', 'TagController@update');
+
+        //软删除
+        Route::get('destroy/{id}', 'TagController@destroy');
+        //恢复
+        Route::get('restore/{id}', 'TagController@restore');
+        //彻底删除
+        Route::get('forceDelete/{id}', 'TagController@forceDelete');
     });
 });

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ArticleRequest extends FormRequest
+class TagRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,18 @@ class ArticleRequest extends FormRequest
     {
         return [
             //
-            'title' => 'required',
-            'type_id' => 'required',
-            'author' => 'required',
-//            'tag_ids' => 'required'
+            'name' => 'required',
+            'keywords' => 'required',
+            'description' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => '标签名不能为空',
+            'keywords.required' => '关键词不能为空',
+            'description.required' => '描述不能为空',
         ];
     }
 }
