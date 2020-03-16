@@ -31,11 +31,9 @@
             <a class="navbar-brand" href="#"><span>BHBBlog</span>Admin</a>
             <ul class="user-menu">
                 <li class="dropdown pull-right">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> User <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> {{auth()->guard('admin')->user()->name }} <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                        <li><a href="{{ url('admin/login/logout') }}"><span class="glyphicon glyphicon-log-out"></span> 退出登录</a></li>
                     </ul>
                 </li>
             </ul>
@@ -49,9 +47,9 @@
         <li><a href="{{url('admin/article/index')}}"><span class="glyphicon glyphicon-th"></span> 文章</a></li>
         <li><a href="{{url('admin/type/index')}}"><span class="glyphicon glyphicon-stats"></span> 分类</a></li>
         <li><a href="{{url('admin/tag/index')}}"><span class="glyphicon glyphicon-list-alt"></span> 标签</a></li>
+        <li><a href="{{url('admin/nav/index')}}"><span class="glyphicon glyphicon-list-alt"></span> 导航</a></li>
         <li><a href="forms.html"><span class="glyphicon glyphicon-pencil"></span> 用户</a></li>
         <li><a href="forms.html"><span class="glyphicon glyphicon-pencil"></span> 评论</a></li>
-        <li><a href="forms.html"><span class="glyphicon glyphicon-pencil"></span> 导航栏</a></li>
         <li><a href="panels.html"><span class="glyphicon glyphicon-info-sign"></span> 友情链接</a></li>
         <li class="parent ">
             <a href="#">

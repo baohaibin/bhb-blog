@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>后台登录</title>
 
     <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
@@ -17,7 +18,8 @@
         <div class="login-panel panel panel-default">
             <div class="panel-heading">登录</div>
             <div class="panel-body">
-                <form role="form">
+                <form role="form" action="{{url('auth/admin/login')}}" method="post">
+                    {{csrf_field()}}
                     <fieldset>
                         <div class="form-group">
                             <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus="">
@@ -25,7 +27,7 @@
                         <div class="form-group">
                             <input class="form-control" placeholder="Password" name="password" type="password" value="">
                         </div>
-                        <a href="index.html" class="btn btn-primary">登录</a>
+                        <input type="submit" class="btn btn-primary" value="登录" >
                     </fieldset>
                 </form>
             </div>

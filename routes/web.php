@@ -11,8 +11,29 @@
 |
 */
 
+// auth
+Route::namespace('Auth')->prefix('auth')->group(function () {
+    // 后台登录
+    Route::prefix('admin')->group(function () {
+        Route::post('login', 'AdminController@login');
+    });
+});
 
+// 后台登录页面
 Route::namespace('Admin')->prefix('admin')->group(function () {
+
+    Route::redirect('/', url('admin/login/index'));
+    Route::prefix('login')->group(function () {
+        // 登录页面
+        Route::get('index', 'LoginController@index')->middleware('login.admin');
+        // 登录
+//        Route::post('login', 'LoginController@login');
+        // 退出
+        Route::get('logout', 'LoginController@logout');
+    });
+});
+
+Route::namespace('Admin')->prefix('admin')->middleware('auth.admin')->group(function () {
     //首页
     Route::prefix('index')->group(function () {
         // 后台首页
@@ -74,5 +95,24 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
         Route::get('restore/{id}', 'TagController@restore');
         //彻底删除
         Route::get('forceDelete/{id}', 'TagController@forceDelete');
+    });
+
+    Route::prefix('nav')->group(function () {
+        // 分类列表
+        Route::get('index', 'NavController@index');
+        // 新增分类
+        Route::get('create', 'NavController@create');
+        Route::post('store', 'NavController@store');
+
+        // 编辑分类
+        Route::get('edit/{id}', 'NavController@edit');
+        Route::post('update/{id}', 'NavController@update');
+
+        //软删除
+        Route::get('destroy/{id}', 'NavController@destroy');
+        //恢复
+        Route::get('restore/{id}', 'NavController@restore');
+        //彻底删除
+        Route::get('forceDelete/{id}', 'NavController@forceDelete');
     });
 });
