@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Base extends Model
 {
-    //支持软删除
+    //支持软删除git commit -m "msg(提交日志)"
     use SoftDeletes;
     /**
      * $fillable 和 $guarded 只能定义其中的一个；
